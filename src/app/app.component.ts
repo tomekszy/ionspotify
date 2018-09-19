@@ -4,12 +4,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { RedditService } from './services/reddit.service';
+import { SpotifyService } from './services/spotify.service';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html',
-  providers: [RedditService]
+  providers: [RedditService, SpotifyService]
 })
 export class MyApp {
   rootPage: any = TabsPage;
