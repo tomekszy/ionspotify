@@ -1,0 +1,7 @@
+{
+  "name": "ionreddit",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
