@@ -20,7 +20,15 @@ export class ScanPage {
     }
 
     listFiles() {
-        this.file.checkDir(this.file.dataDirectory, 'mydir').then(_ => console.log('Directory exists')).catch(err => console.log('Directory doesn\'t exist'));
+        this.file.checkDir(this.file.dataDirectory, '../../app').then(_ => console.log('Directory exists')).catch(err => console.log('Directory doesn\'t exist'));
+
+        this.file
+            .checkDir('www/assets/', 'data')
+            .then(result => {
+                console.log(result);
+            }).catch((error) => {
+                console.log('error ' + JSON.stringify(error));
+            });
     }
 
 
