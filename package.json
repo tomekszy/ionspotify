@@ -1,7 +1,7 @@
 {
-  "name": "ionreddit",
+  "name": "ionspotify",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "Tomasz Szymański",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
@@ -56,7 +56,7 @@
     "@ionic/app-scripts": "3.2.0",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project",
+  "description": "MP3 to Spotify",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},

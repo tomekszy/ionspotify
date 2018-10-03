@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { Platform, NavController } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { DetailsPage } from '../details/details';
 
@@ -8,65 +8,102 @@ import { DetailsPage } from '../details/details';
     templateUrl: 'scan.html'
 })
 export class ScanPage {
-    tracks: any;
-    exist1: boolean;
-    exist2: boolean;
-    exist3: string;
-    exist4: any;
+    items;
+    savedParentNativeURLs = [];
 
     constructor(
         public navCtrl: NavController,
-        private file: File
-    ) { }
+        private fileNavigator: File,
+        public plt: Platform,
+        public ngZone: NgZone,
 
-    ngOnInit() {
-        this.createDir();
-        this.listFiles();
-        this.getFreeSpace();
+    ) {
+        const ROOT_DIRECTORY = 'file:///storage';
+
+        plt.ready()
+            .then(() => {
+                this.listDir(ROOT_DIRECTORY, '');
+            })
+
     }
 
-    createDir() {
-        this.file.createDir(this.file.externalRootDirectory, 'mydircordova', true);
-    }
+    listDir = (path, dirName) => {
+        this.fileNavigator
+            .listDir(path, dirName)
+            .then(entries => {
+                this.items = entries;
+            })
+            .catch(this.handleError);
+    };
 
-    listFiles() {
-        this.file.checkDir(this.file.externalRootDirectory, 'mydircordova').then(_ => {
-            console.log('Directory exists');
-            this.exist1 = true;
-        }
-        ).catch(err => {
-            console.log('Directory doesn\'t exist');
-            this.exist1 = false;
-        });
+    handleError = error => {
+        console.log("error reading,", error);
+    };
 
-        this.file
-            .checkDir(this.file.externalRootDirectory, 'mydircordove')
-            .then(result => {
-                console.log(result);
-                this.exist2 = result;
-            }).catch((error) => {
-                console.log('error ' + JSON.stringify(error));
-                this.exist3 = 'error ' + JSON.stringify(error)
-            });
-    }
+    goDown = item => {
+        const parentNativeURL = item.nativeURL.replace(item.name, "");
+        this.savedParentNativeURLs.push(parentNativeURL);
 
-    getFreeSpace() {
-        this.file.getFreeDiskSpace()
-            .then(function (success) {
-                console.log(success);
-                this.exist4 = success;
-            }, function (error) {
-                console.log(error);
-                this.exist4 = error;
-            });
-    }
+        this.listDir(parentNativeURL, item.name);
+    };
 
+    goUp = () => {
+        const parentNativeURL = this.savedParentNativeURLs.pop();
+
+        this.listDir(parentNativeURL, "");
+    };
+
+
+
+
+    // ngOnInit() {
+    // this.createDir();
+    // this.listFiles();
+    // this.getFreeSpace();
+    // }
+
+    // createDir() {
+    //     this.file.createDir(this.file.externalRootDirectory, 'mydircordova', true);
+    // }
+
+    // listFiles() {
+    //     this.file.checkDir(this.file.externalRootDirectory, 'mydircordova').then(_ => {
+    //         console.log('Directory exists');
+    //         this.exist1 = true;
+    //     }
+    //     ).catch(err => {
+    //         console.log('Directory doesn\'t exist');
+    //         this.exist1 = false;
+    //     });
+
+    //     this.file
+    //         .checkDir(this.file.externalRootDirectory, 'mydircordove')
+    //         .then(result => {
+    //             console.log(result);
+    //             this.exist2 = result;
+    //         }).catch((error) => {
+    //             console.log('error ' + JSON.stringify(error));
+    //             this.exist3 = 'error ' + JSON.stringify(error)
+    //         });
+    // }
+
+    // getFreeSpace() {
+    //     this.file.getFreeDiskSpace()
+    //         .then(function (success) {
+    //             console.log(success);
+    //             this.exist4 = success;
+    //         }, function (error) {
+    //             console.log(error);
+    //             this.exist4 = error;
+    //         });
+    // }
 
     goToScanned(item) {
         this.navCtrl.push(DetailsPage, {
             item: item
         });
     }
+
 
 
 }
