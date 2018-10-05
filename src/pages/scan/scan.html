@@ -14,13 +14,19 @@
     <div *ngFor="let item of items">
 
         <div *ngIf="item.isDirectory" (click)="goDown(item)">
-            Directory: {{item.name}}
+            <h2>Directory: {{item.name}}</h2>
         </div>
 
         <div *ngIf="item.isFile">
-            File: {{item.name}}
+            <h2>File: {{item.name}}</h2>
         </div>
 
     </div>
+
+    <button ion-button (click)="selectDirectory()">
+        Select directory
+    </button>
+
+    <p *ngIf="selectedDirectory != undefined">Selected Directory: {{selectedDirectory}}</p>
 
 </ion-content>

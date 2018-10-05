@@ -6,10 +6,15 @@ import 'rxjs/Rx';
 export class SpotifyService {
     http: any;
     baseUrl: string;
+    items: any = [];
 
     constructor(http: Http) {
         this.http = http;
         this.baseUrl = 'https://api.spotify.com/v1/';
+    }
+
+    getToken() {
+
     }
 
     search(searchTerm) {

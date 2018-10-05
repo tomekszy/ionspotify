@@ -9,6 +9,7 @@ import { DetailsPage } from '../details/details';
 })
 export class SearchPage {
     tracks: any;
+    files: any;
 
     constructor(
         public navCtrl: NavController,
@@ -16,10 +17,14 @@ export class SearchPage {
         // this.getDefaults();
     }
 
-    // ngOnInit() {
-    //     this.getPosts(this.category, this.limit);
-    // }
+    ngOnInit() {
+        //     this.getPosts(this.category, this.limit);
+        this.files = this.spotifyService.items;
+    }
 
+    getToken() {
+        this.spotifyService.getToken();
+    }
 
     getSearch(searchTerm) {
         this.spotifyService.search(searchTerm)

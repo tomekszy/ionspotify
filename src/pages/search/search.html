@@ -7,13 +7,17 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list>
-        <ion-item>
-            <ion-label fixed>Searches</ion-label>
 
-        </ion-item>
-    </ion-list>
-    <ion-list>
+    <ion-label fixed>Searches</ion-label>
 
-    </ion-list>
+    <button ion-button (click)="getToken()">Log in to Spotify</button>
+
+    <div *ngFor="let file of files">
+
+        <div *ngIf="file.isFile">
+            File: {{file.name}}
+        </div>
+
+    </div>
+
 </ion-content>
