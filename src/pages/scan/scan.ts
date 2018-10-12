@@ -55,12 +55,15 @@ export class ScanPage {
         this.listDir(parentNativeURL, item.name);
     };
 
-    goUp() {
-        // const parentNativeURL = this.savedParentNativeURLs.pop();
-        // this.listDir(parentNativeURL, "");
+    goStart() {
         const ROOT_DIRECTORY = 'file:///';
         this.listDir(ROOT_DIRECTORY, 'sdcard');
     };
+
+    goUp() {
+        const parentNativeURL = this.savedParentNativeURLs.pop();
+        this.listDir(parentNativeURL, "");
+    }
 
     selectDirectory() {
         this.spotifyService.items = [];
