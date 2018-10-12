@@ -9,17 +9,11 @@ import { DetailsPage } from '../details/details';
 })
 export class SearchPage {
     tracks: any;
-    files: any;
 
     constructor(
         public navCtrl: NavController,
         private spotifyService: SpotifyService) {
-        // this.getDefaults();
-    }
 
-    ngOnInit() {
-        //     this.getPosts(this.category, this.limit);
-        this.files = this.spotifyService.items;
     }
 
     getToken() {
@@ -39,8 +33,5 @@ export class SearchPage {
         });
     }
 
-    // changeCategory() {
-    //     this.getPosts(this.category, this.limit);
-    // }
 
 }

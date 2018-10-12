@@ -27,7 +27,7 @@ export class ScanPage {
 
         plt.ready()
             .then(() => {
-                this.listDir(ROOT_DIRECTORY, '');
+                this.listDir(ROOT_DIRECTORY, 'sdcard');
             })
 
     }
@@ -56,14 +56,15 @@ export class ScanPage {
     };
 
     goUp() {
-        const parentNativeURL = this.savedParentNativeURLs.pop();
-
-        this.listDir(parentNativeURL, "");
+        // const parentNativeURL = this.savedParentNativeURLs.pop();
+        // this.listDir(parentNativeURL, "");
+        const ROOT_DIRECTORY = 'file:///';
+        this.listDir(ROOT_DIRECTORY, 'sdcard');
     };
 
     selectDirectory() {
+        this.spotifyService.items = [];
         this.selectedDirectory = (this.parentNativeURL + this.item.name);
-        // this.spotifyService.items.push(this.items);
         this.items.forEach(item => {
             if (item.isDirectory) {
                 console.log("ścieżka " + this.parentNativeURL + this.item.name + '//' + item.name);
@@ -73,61 +74,12 @@ export class ScanPage {
             }
             console.log("lista po każdym przebiegu " + this.spotifyService.items);
         });
-
-        // this.spotifyService.items = this.items;
-
     }
-
-
-
-    // ngOnInit() {
-    // this.createDir();
-    // this.listFiles();
-    // this.getFreeSpace();
-    // }
-
-    // createDir() {
-    //     this.file.createDir(this.file.externalRootDirectory, 'mydircordova', true);
-    // }
-
-    // listFiles() {
-    //     this.file.checkDir(this.file.externalRootDirectory, 'mydircordova').then(_ => {
-    //         console.log('Directory exists');
-    //         this.exist1 = true;
-    //     }
-    //     ).catch(err => {
-    //         console.log('Directory doesn\'t exist');
-    //         this.exist1 = false;
-    //     });
-
-    //     this.file
-    //         .checkDir(this.file.externalRootDirectory, 'mydircordove')
-    //         .then(result => {
-    //             console.log(result);
-    //             this.exist2 = result;
-    //         }).catch((error) => {
-    //             console.log('error ' + JSON.stringify(error));
-    //             this.exist3 = 'error ' + JSON.stringify(error)
-    //         });
-    // }
-
-    // getFreeSpace() {
-    //     this.file.getFreeDiskSpace()
-    //         .then(function (success) {
-    //             console.log(success);
-    //             this.exist4 = success;
-    //         }, function (error) {
-    //             console.log(error);
-    //             this.exist4 = error;
-    //         });
-    // }
 
     goToScanned(item) {
         this.navCtrl.push(DetailsPage, {
             item: item
         });
     }
-
-
 
 }

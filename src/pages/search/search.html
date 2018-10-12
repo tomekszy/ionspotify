@@ -12,7 +12,7 @@
 
     <button ion-button (click)="getToken()">Log in to Spotify</button>
 
-    <div *ngFor="let file of files">
+    <div *ngFor="let file of spotifyService.items">
 
         <div *ngIf="file.isFile">
             File: {{file.name}}
